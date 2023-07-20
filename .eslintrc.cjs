@@ -5,7 +5,7 @@ module.exports = {
     'node': true,
   },
   'extends': [
-    "semistandard",
+    // "semistandard",
     'google',
     'plugin:react/recommended',
   ],
