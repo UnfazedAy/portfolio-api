@@ -15,7 +15,7 @@ const HOST = process.env.HOST || "localhost";
 app.listen(
   PORT,
   console.log(
-    `Server running in ${process.env.NODE_ENV} mode on port http://${HOST}:${PORT}`.yellow.bold
+    `Server running in ${process.env.NODE_ENV} mode on http://${HOST}:${PORT}`.yellow.bold
   )
 );
 

@@ -30,5 +30,8 @@ module.exports = {
     'react',
   ],
   'rules': {
+    'indent': ['error', 2],
+    'quotes': ['error', 'single'],
+    'eol-last': ['error', 'always'],
   },
 };
