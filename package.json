@@ -30,6 +30,7 @@
   "devDependencies": {
     "eslint": "^8.45.0",
     "eslint-config-google": "^0.14.0",
+    "eslint-plugin-promise": "^6.1.1",
     "eslint-plugin-react": "^7.32.2",
     "multer": "^1.4.5-lts.1",
     "nodemon": "^3.0.1"

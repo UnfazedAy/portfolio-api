@@ -6,7 +6,7 @@ import colors from 'colors';
 import connectDB from './config/db.js';
 
 // Load env variables
-dotenv.config({path: './config/config.env'});
+dotenv.config({ path: './config/config.env' });
 
 // Connect to database
 connectDB();

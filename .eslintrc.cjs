@@ -30,6 +30,7 @@ module.exports = {
     'react',
   ],
   'rules': {
+    'object-curly-spacing': ['error', 'always'],
     'indent': ['error', 2],
     'quotes': ['error', 'single'],
     'eol-last': ['error', 'always'],
