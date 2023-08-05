@@ -4,6 +4,7 @@ import morgan from 'morgan';
 // eslint-disable-next-line no-unused-vars
 import colors from 'colors';
 import connectDB from './config/db.js';
+import projectsRouter from './routes/projects.js';
 
 // Load env variables
 dotenv.config({ path: './config/config.env' });
@@ -13,12 +14,16 @@ connectDB();
 
 const app = express();
 
+// Body parser
 app.use(express.json());
 
 // Dev logging middleware
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
+
+// Mount routers
+app.use('/api/v1/projects', projectsRouter);
 
 const PORT = process.env.PORT || 5000;
 const HOST = process.env.HOST || 'localhost';

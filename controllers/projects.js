@@ -8,7 +8,7 @@ config({ path: './config/config.env' });
 // @desc: Add a new project
 // @route: POST /api/v1/projects
 // @access: Private
-export const addProject = async (req, res) => {
+export const createProject = async (req, res, next) => {
   try {
     // Use multer middleware to upload image
     upload(req, res, async (err) => {
@@ -24,7 +24,7 @@ export const addProject = async (req, res) => {
       const imageUrl = await uploader(dataUri);
 
       // Create a new project with the cloudinary uploaded image url
-      const project = await Project.create({ ...req.body, imageUrl });
+      const project = await Project.create({ imageUrl, ...req.body });
 
       res.status(201).json({ success: true, data: project });
     });
