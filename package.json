@@ -20,7 +20,7 @@
   "homepage": "https://github.com/UnfazedAy/portfolio-api#readme",
   "type": "module",
   "dependencies": {
-    "cloudinary": "^1.38.0",
+    "cloudinary": "^1.40.0",
     "colors": "^1.4.0",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
@@ -31,6 +31,7 @@
     "eslint": "^8.45.0",
     "eslint-config-google": "^0.14.0",
     "eslint-plugin-react": "^7.32.2",
+    "multer": "^1.4.5-lts.1",
     "nodemon": "^3.0.1"
   }
 }
