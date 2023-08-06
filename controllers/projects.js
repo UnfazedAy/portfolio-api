@@ -15,9 +15,6 @@ export const createProject = async (req, res, next) => {
       if (err) {
         return res.status(400).json({ success: false, error: err.message });
       }
-      // console.log('Printing req.file');
-      // console.log();
-      // console.log(req.file);
 
       if (!req.file) {
         return res
@@ -27,17 +24,18 @@ export const createProject = async (req, res, next) => {
 
       // Convert the uploaded image to data uri using bufferToDataUri function
       const { mimetype, buffer } = req.file;
-      // console.log('Printing mimetype and buffer');
-      // console.log();
-      // console.log(mimetype, buffer);
+      const fileFormat = mimetype.split('/')[1];
 
-      const dataUri = bufferToDataUri(mimetype, buffer).content;
-      console.log('Printing dataUri');
-      console.log();
-      console.log(dataUri);
+      const fileData = bufferToDataUri(`.${fileFormat}`, buffer).content;
 
       // Upload the image to cloudinary using uploader function
-      const imageUrl = await uploader(dataUri);
+      const imageUrl = await uploader(fileData);
+
+      if (!imageUrl) {
+        return res
+          .status(400)
+          .json({ success: false, error: 'Image upload to cloudinary failed' });
+      }
 
       // Create a new project with the cloudinary uploaded image url
       const project = await Project.create({ image: imageUrl, ...req.body });
