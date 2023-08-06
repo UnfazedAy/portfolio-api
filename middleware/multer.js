@@ -8,10 +8,10 @@ const memoryStorage = multer.memoryStorage();
 const upload = multer({
   storage: memoryStorage,
   limits: { fileSize: 1 * 1024 * 1024 }, // 1 MB
-}).any();
+}).single('image'); // Use .single() for a single file upload
 
 const bufferToDataUri = (fileFormat, buffer) => {
-  parser.format(fileFormat, buffer);
+  return parser.format(fileFormat, buffer);
 };
 
 export { upload, bufferToDataUri };
