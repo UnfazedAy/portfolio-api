@@ -5,6 +5,7 @@ import morgan from 'morgan';
 import colors from 'colors';
 import connectDB from './config/db.js';
 import projectsRouter from './routes/projects.js';
+import errorHandler from './middleware/error.js';
 
 // Load env variables
 dotenv.config({ path: './config/config.env' });
@@ -24,6 +25,9 @@ if (process.env.NODE_ENV === 'development') {
 
 // Mount routers
 app.use('/api/v1/projects', projectsRouter);
+
+// Mount error handler
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
 const HOST = process.env.HOST || 'localhost';
