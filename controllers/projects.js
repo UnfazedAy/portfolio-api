@@ -15,7 +15,6 @@ export const createProject = asyncHandler(async (req, res, next) => {
     if (err) {
       return next(new ErrorResponse(err.message, 400));
     }
-
     if (!req.file) {
       return next(new ErrorResponse('Please upload an image', 400));
     }
@@ -27,14 +26,16 @@ export const createProject = asyncHandler(async (req, res, next) => {
 
     // Upload the image to cloudinary using uploader function
     const imageUrl = await uploader(fileData);
-
     if (!imageUrl) {
       return next(new ErrorResponse('Image upload to cloudinary failed', 500));
     }
 
     // Create a new project with the cloudinary uploaded image url
-    const project = await Project.create({ image: imageUrl, ...req.body });
-
-    res.status(201).json({ success: true, data: project });
+    try {
+      const project = await Project.create({ image: imageUrl, ...req.body });
+      res.status(201).json({ success: true, data: project });
+    } catch (error) {
+      next(error);
+    }
   });
 });

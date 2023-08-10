@@ -8,13 +8,18 @@ const errorHandler = (err, req, res, next) => {
 
   // Mongoose bad ObjectId
   if (err.name === 'CastError') {
-    const message = `Bootcamp not found with id of ${err.value}`;
+    const message = `Resource not found with id of ${err.value}`;
     error = new ErrorResponse(message, 404);
   }
 
   // Mongoose duplicate key
-  if (err.code === 11000) {
-    const message = 'Duplicate field value entered';
+  if (err.code === 11000 && err.keyValue) {
+    const uniqueFields = Object.keys(err.keyValue);
+    const messages = uniqueFields.map((field) => {
+      const value = err.keyValue[field];
+      return `Duplicate value '${value}' entered for feild '${field}'`;
+    });
+    const message = messages.join(', ');
     error = new ErrorResponse(message, 400);
   }
 
