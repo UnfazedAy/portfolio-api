@@ -38,6 +38,10 @@ const projectSchema = new mongoose.Schema({
       'Please use a valid URL with HTTP or HTTPS',
     ],
   },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 export default mongoose.models.Project || mongoose.model('Project', projectSchema);
