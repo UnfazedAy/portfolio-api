@@ -39,3 +39,10 @@ export const createProject = asyncHandler(async (req, res, next) => {
     }
   });
 });
+
+// @desc Get all projects
+// @route GET ap1/v1/projects
+export const getProjects = asyncHandler(async (req, res, next) => {
+  const projects = await Project.find();
+  res.status(200).json({ success: true, data: projects });
+});
