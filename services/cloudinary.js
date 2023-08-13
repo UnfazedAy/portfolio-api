@@ -19,7 +19,7 @@ const uploader = async (file) => {
     });
     return res.secure_url;
   } catch (err) {
-    console.log(err.message);
+    console.error('Cloudinary upload error:', err.message);
   }
 };
 

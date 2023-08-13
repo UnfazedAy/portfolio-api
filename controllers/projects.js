@@ -1,8 +1,9 @@
 import { config } from 'dotenv';
-// import ErrorResponse from '../services/errorResponse.js';
+import ErrorResponse from '../services/errorResponse.js';
 import asyncHandler from '../middleware/async.js';
 import Project from '../models/Project.js';
 import uploadImage from '../middleware/imageUpload.js';
+import updateProjectData from '../middleware/updateProjectData.js';
 
 config({ path: './config/config.env' });
 
@@ -14,7 +15,6 @@ export const createProject = asyncHandler(async (req, res, next) => {
     if (err) {
       return next(err);
     }
-
     try {
       const project = await Project.create({
         image: req.imageUrl, ...req.body,
@@ -31,4 +31,43 @@ export const createProject = asyncHandler(async (req, res, next) => {
 // @route GET ap1/v1/projects
 export const getProjects = asyncHandler(async (req, res, next) => {
   res.status(200).json(res.advancedResults);
+});
+
+// @desc Get a single project
+// @route GET ap1/v1/projects/:id
+export const getProject = asyncHandler(async (req, res, next) => {
+  const project = await Project.findById(req.params.id);
+  if (!project) {
+    return next(
+      new ErrorResponse(`Project not found with id of ${req.params.id}`, 404),
+    );
+  }
+  res.status(200).json({ success: true, data: project });
+});
+
+// @desc Update a project
+// @route PUT ap1/v1/projects/:id
+export const updateProject = asyncHandler(async (req, res, next) => {
+  if (req.file) {
+    uploadImage(req, res, async (err) => {
+      if (err) {
+        return next(err);
+      }
+      await updateProjectData(req, res, next);
+    });
+  } else {
+    await updateProjectData(req, res, next);
+  }
+});
+
+// @desc Delete a project
+// @route DELETE ap1/v1/projects/:id
+export const deleteProject = asyncHandler(async (req, res, next) => {
+  const project = await Project.findByIdAndDelete(req.params.id);
+  if (!project) {
+    return next(
+      new ErrorResponse(`Project not found with id of ${req.params.id}`, 404),
+    );
+  }
+  res.status(200).json({ success: true, data: {} });
 });
