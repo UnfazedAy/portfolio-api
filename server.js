@@ -6,7 +6,7 @@ import colors from 'colors';
 import connectDB from './config/db.js';
 import projectsRouter from './routes/projects.js';
 import errorHandler from './middleware/error.js';
-
+import { upload } from './middleware/multer.js';
 // Load env variables
 dotenv.config({ path: './config/config.env' });
 
@@ -17,6 +17,9 @@ const app = express();
 
 // Body parser
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+app.use(upload);
 
 // Dev logging middleware
 if (process.env.NODE_ENV === 'development') {
