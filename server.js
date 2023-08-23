@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 import dotenv from 'dotenv';
 import morgan from 'morgan';
 // eslint-disable-next-line no-unused-vars
@@ -14,6 +15,8 @@ dotenv.config({ path: './config/config.env' });
 connectDB();
 
 const app = express();
+
+app.use(cors());
 
 // Body parser
 app.use(express.json());
