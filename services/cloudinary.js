@@ -2,6 +2,7 @@
 
 import { config } from 'dotenv';
 import { v2 as cloudinary } from 'cloudinary';
+import logger from '../logger.js';
 
 config({ path: './config/config.env' });
 
@@ -19,7 +20,7 @@ const uploader = async (file) => {
     });
     return res.secure_url;
   } catch (err) {
-    console.error('Cloudinary upload error:', err.message);
+    logger.error('Cloudinary upload error:', err.message);
   }
 };
 

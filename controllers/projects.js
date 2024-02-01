@@ -4,6 +4,7 @@ import asyncHandler from '../middleware/async.js';
 import Project from '../models/Project.js';
 import uploader from '../services/cloudinary.js';
 import { bufferToDataUri } from '../middleware/multer.js';
+import logger from '../logger.js';
 
 config({ path: './config/config.env' });
 
@@ -89,7 +90,7 @@ export const updateProject = asyncHandler(async (req, res, next) => {
       const imageUrl = await uploader(fileData);
       updatedProjectData.image = imageUrl;
     } catch (error) {
-      console.log(error.message);
+      logger.error(error.message);
       // Handle the error if image upload to Cloudinary fails
       return next(new ErrorResponse('Image upload to cloudinary failed', 500));
     }

@@ -8,6 +8,7 @@ import connectDB from './config/db.js';
 import projectsRouter from './routes/projects.js';
 import errorHandler from './middleware/error.js';
 import { upload } from './middleware/multer.js';
+import logger from './logger.js';
 // Load env variables
 dotenv.config({ path: './config/config.env' });
 
@@ -40,7 +41,7 @@ const HOST = process.env.HOST || 'localhost';
 
 const server = app.listen(
   PORT,
-  console.log(
+  logger.info(
     `Server running in ${process.env.NODE_ENV} mode on http://${HOST}:${PORT}`.yellow.bold,
   ),
 );

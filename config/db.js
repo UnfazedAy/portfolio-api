@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import logger from '../logger.js';
 
 const connectDB = async () => {
   const conn = await mongoose.connect(process.env.MONGO_URI, {
@@ -6,7 +7,7 @@ const connectDB = async () => {
     useUnifiedTopology: true,
   });
 
-  console.log(`MongoDB Connected: ${conn.connection.host}`.cyan.underline.bold);
+  logger.info(`MongoDB Connected: ${conn.connection.host}`.cyan.underline.bold);
 };
 
 export default connectDB;
